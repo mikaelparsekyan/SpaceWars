@@ -2,8 +2,8 @@ import pygame
 from pygame import key
 from pygame.constants import K_DOWN, K_UP, K_LEFT, K_RIGHT
 
-import Player
 import Screen
+from Player import Player
 
 FPS = 100
 screenWidth = 500
@@ -14,41 +14,36 @@ clock = pygame.time.Clock()
 
 screenColor = (255, 255, 255)
 
-playerX = Player.x
-playerY = Player.y
+player = Player(100, 100)
 
-playerSpeed = Player.moveSpeed
+playerSpeed = player.moveSpeed
 
 pygame.init()
 pygame.display.set_caption("PyGame")
 
-screen = Screen
+screen = Screen#TODO
 
 done = False
 
 
-def move_down(playerY):
-    if playerY < screenHeight - Player.height:
-        playerY += playerSpeed
-    return playerY
+def move_down():
+    if player.get_y() < screenHeight - Player.height:
+        player.set_y(player.get_y() + playerSpeed)
 
 
-def move_up(playerY):
-    if playerY >= 0:
-        playerY -= playerSpeed
-    return playerY
+def move_up():
+    if player.get_y() >= 0:
+        player.set_y(player.get_y() - playerSpeed)
 
 
-def move_left(playerX):
-    if playerX >= 0:
-        playerX -= playerSpeed
-    return playerX
+def move_left():
+    if player.get_x() >= 0:
+        player.set_x(player.get_x() - playerSpeed)
 
 
-def move_right(playerX):
-    if playerX < screenWidth - Player.width:
-        playerX -= playerSpeed
-    return playerX
+def move_right():
+    if player.get_x() < screenWidth - Player.width:
+        player.set_x(player.get_x() + playerSpeed)
 
 
 while not done:
@@ -56,17 +51,17 @@ while not done:
 
     backgroundY += 5
     screen.move(backgroundY)
-    screen.add_player(playerX, playerY)
+    screen.add_player(player.get_x(), player.get_y())
 
     keys = key.get_pressed()
     if keys[K_DOWN]:
-        playerY = move_down(playerY)
+        move_down()
     if keys[K_UP]:
-        playerY = move_up(playerY)
+        move_up()
     if keys[K_LEFT]:
-        playerX = move_left(playerX)
+        move_left()
     if keys[K_RIGHT]:
-        playerX = move_down(playerX)
+        move_right()
 
     pygame.display.flip()
     for event in pygame.event.get():

@@ -1,6 +1,6 @@
 import pygame
 
-import Player
+from Player import Player
 
 x = 0
 y = 0
@@ -12,15 +12,16 @@ height = 500
 
 color = (255, 255, 255)
 
-backgroundImage = pygame.image.load("res/road.png")
+backgroundImage = pygame.image.load("res/background.jpg")
 backgroundImage = pygame.transform.scale(backgroundImage, (width, height))
 
 screen = pygame.display.set_mode((width, height))
 
+player = Player(0, 0)
 
 
 def add_player(player_x, player_y):
-    screen.blit(Player.image, (player_x, player_y))
+    screen.blit(player.get_img(), (player_x, player_y))
 
 
 def move(backgroundY):
@@ -29,3 +30,7 @@ def move(backgroundY):
     if rel_y < 500:
         screen.blit(backgroundImage, (0, rel_y))
     backgroundY += 8
+
+
+#def shoot():
+
