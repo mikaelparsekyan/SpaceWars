@@ -2,7 +2,7 @@ import pygame
 from pygame import key
 from pygame.constants import K_DOWN, K_UP, K_LEFT, K_RIGHT
 
-import Screen
+from Screen import Screen
 from Player import Player
 
 FPS = 100
@@ -21,7 +21,7 @@ playerSpeed = player.moveSpeed
 pygame.init()
 pygame.display.set_caption("PyGame")
 
-screen = Screen#TODO
+screen = Screen(500, 500)
 
 done = False
 
