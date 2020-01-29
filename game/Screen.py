@@ -1,6 +1,7 @@
 import pygame
 
-from Player import Player
+from players.Enemy import Enemy
+from players.MainPlayer import MainPlayer
 
 
 class Screen:
@@ -16,7 +17,8 @@ class Screen:
 
     backgroundImage = pygame.image.load("res/background.jpg")
 
-    player = Player(0, 0)
+    player = MainPlayer(0, 0)
+    enemy = Enemy(0, 0)
 
     def __init__(self, w, h):
         self.width = w
@@ -26,6 +28,9 @@ class Screen:
 
     def add_player(self, player_x, player_y):
         self.screen.blit(self.player.get_img(), (player_x, player_y))
+
+    def add_enemy_if_dead(self,e, enemy_x, enemy_y):
+        self.screen.blit(self.enemy.get_img(), (enemy_x, enemy_y))
 
     def move(self, backgroundY):
         rel_y = backgroundY % self.width
