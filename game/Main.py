@@ -1,3 +1,4 @@
+import time
 from random import random
 
 import pygame
@@ -26,6 +27,8 @@ playerSpeed = player.moveSpeed
 pygame.init()
 pygame.display.set_caption("Space Wars")
 
+destroyed_image = pygame.image.load("res/dead.png")
+
 screen = Screen(500, 500)
 bullets = []
 
@@ -36,20 +39,28 @@ while not done:
     clock.tick(FPS)
     backgroundY += 4
     screen.move(backgroundY)
-    enemy.move(screenWidth)
-    screen.add_enemy_if_dead(enemy, enemy.get_x(), enemy.get_y(), enemy.get_img())
-    screen.add_player(player.get_x(), player.get_y(), player.get_img())
+    enemy.move(player, screenWidth)
+    screen.add_enemy_if_dead(enemy, enemy.get_img())
+    screen.add_player(player, player.get_img())
 
-    if firing:
-        assign = False
+    if firing | len(bullets) != 0:  # TODO move to bullet.py
         for bullet in bullets:
+            firing = True
+            if bullet.get_x() in range(round(enemy.get_x() - enemy.get_width() / 2),
+                                       round(enemy.get_x() + enemy.get_width() / 2)):
+                if bullet.get_y() == 60:
+                    enemy.take_life_points(bullet.damage)
+                    if not enemy.is_alive():
+                        enemy.set_img(destroyed_image)
+
             screen.add_bullet(bullet.get_x(), bullet.get_y(), bullet.image)
             bullet.set_y(bullet.get_y() - 5)
             if bullet.get_y() <= 0:
-                bullet.set_y(300)
-                bullets.remove(bullet)
+                print("removed")
                 firing = False
-
+                bullets.remove(bullet)
+            elif bullet.get_y() <= player.get_y() - 90:
+                firing = False
     keys = key.get_pressed()
     if keys[K_DOWN]:
         player.move_down(screenHeight)
@@ -62,11 +73,10 @@ while not done:
     if keys[K_SPACE]:
         if not firing:
             bullet = Bullet(player.get_x(), player.get_y())
-            bullet.set_x(player.get_x())
-            bullet.set_y(player.get_y())
             bullets.append(bullet)
+            print(len(bullets))
             firing = True
-        #player.shoot(screen, bullet)
+        # player.shoot(screen, bullet)
 
     pygame.display.flip()
     for event in pygame.event.get():

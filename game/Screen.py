@@ -23,11 +23,12 @@ class Screen:
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.backgroundImage = pygame.transform.scale(self.backgroundImage, (self.width, self.height))
 
-    def add_player(self, player_x, player_y, player_image):
-        self.screen.blit(player_image, (player_x, player_y))
+    def add_player(self, player, player_image):
+        self.screen.blit(player_image, (player.get_x(), player.get_y()))
 
-    def add_enemy_if_dead(self,e, enemy_x, enemy_y, enemy_image):#TODO organzing code
-        self.screen.blit(enemy_image, (enemy_x, enemy_y))
+    def add_enemy_if_dead(self,enemy, enemy_image):#TODO organzing code
+        if enemy.is_alive():
+            self.screen.blit(enemy_image, (enemy.get_x(), enemy.get_y()))
 
     def add_bullet(self,bullet_x, bullet_y, bullet_image):
         self.screen.blit(bullet_image, (bullet_x, bullet_y))
