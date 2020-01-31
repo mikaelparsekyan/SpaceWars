@@ -24,10 +24,10 @@ enemy = Enemy(200, 0)
 playerSpeed = player.moveSpeed
 
 pygame.init()
-pygame.display.set_caption("PyGame")
+pygame.display.set_caption("Space Wars")
 
 screen = Screen(500, 500)
-bullet = Bullet(player.get_x(), player.get_y())
+bullets = []
 
 done = False
 firing = False
@@ -42,11 +42,13 @@ while not done:
 
     if firing:
         assign = False
-        screen.add_bullet(bullet.get_x(), bullet.get_y(), bullet.image)
-        bullet.set_y(bullet.get_y() - 5)
-        if bullet.get_y() <= 0:
-            bullet.set_y(300)
-            firing = False
+        for bullet in bullets:
+            screen.add_bullet(bullet.get_x(), bullet.get_y(), bullet.image)
+            bullet.set_y(bullet.get_y() - 5)
+            if bullet.get_y() <= 0:
+                bullet.set_y(300)
+                bullets.remove(bullet)
+                firing = False
 
     keys = key.get_pressed()
     if keys[K_DOWN]:
@@ -59,8 +61,10 @@ while not done:
         player.move_right(screenWidth)
     if keys[K_SPACE]:
         if not firing:
+            bullet = Bullet(player.get_x(), player.get_y())
             bullet.set_x(player.get_x())
             bullet.set_y(player.get_y())
+            bullets.append(bullet)
             firing = True
         #player.shoot(screen, bullet)
 
