@@ -1,25 +1,21 @@
-import time
-from random import random
-
 import pygame
 from pygame import key
 from pygame.constants import K_DOWN, K_UP, K_LEFT, K_RIGHT, K_SPACE
 
-from Bullet import Bullet
-from players.Enemy import Enemy
-from Screen import Screen
-from players.MainPlayer import MainPlayer
+from game_objects.Config import *
+from game_objects.objects.Bullet import Bullet
+from game_objects.players.Enemy import Enemy
+from game_objects.objects.Screen import Screen
+from game_objects.players.MainPlayer import MainPlayer
 
 FPS = 100
-screenWidth = 500
-screenHeight = 500
 backgroundY = 0
 
 clock = pygame.time.Clock()
 
 screenColor = (255, 255, 255)
 
-player = MainPlayer(100, 100)
+player = MainPlayer(0, 0, 100, 100)
 enemy = Enemy(200, 0)
 
 playerSpeed = player.moveSpeed
@@ -29,7 +25,7 @@ pygame.display.set_caption("Space Wars")
 
 destroyed_image = pygame.image.load("res/dead.png")
 
-screen = Screen(500, 500)
+screen = Screen(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 bullets = []
 
 done = False
@@ -39,7 +35,7 @@ while not done:
     clock.tick(FPS)
     backgroundY += 4
     screen.move(backgroundY)
-    enemy.move(player, screenWidth)
+    enemy.move(player, SCREEN_WIDTH)
     screen.add_enemy_if_dead(enemy, enemy.get_img())
     screen.add_player(player, player.get_img())
 
@@ -63,13 +59,13 @@ while not done:
                 firing = False
     keys = key.get_pressed()
     if keys[K_DOWN]:
-        player.move_down(screenHeight)
+        player.move_down(SCREEN_HEIGHT)
     if keys[K_UP]:
         player.move_up()
     if keys[K_LEFT]:
         player.move_left()
     if keys[K_RIGHT]:
-        player.move_right(screenWidth)
+        player.move_right(SCREEN_WIDTH)
     if keys[K_SPACE]:
         if not firing:
             bullet = Bullet(player.get_x(), player.get_y())

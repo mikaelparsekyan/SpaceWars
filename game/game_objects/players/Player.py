@@ -1,18 +1,14 @@
-import pygame
+from abc import ABC
 
-from Bullet import Bullet
+from game_objects.GameObject import GameObject
 
 
-class Player:
-    x = 0
-    y = 0
-
-    width = 60
-    height = 60
-
+class Player(GameObject):
     moveSpeed = 5
-
     bullets = []
+
+    def __init__(self, x, y, w, h, img):
+        super().__init__(x, y, w, h, img)
 
     def set_x(self, x):
         self.x = x

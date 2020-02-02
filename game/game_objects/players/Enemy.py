@@ -1,9 +1,8 @@
 import random
-from datetime import datetime
 
 import pygame
 
-from players.Player import Player
+from game_objects.players.Player import Player
 
 
 class Enemy(Player):
