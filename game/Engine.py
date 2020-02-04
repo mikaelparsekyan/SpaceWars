@@ -16,19 +16,21 @@ controller = Controller(player)
 pygame.init()
 pygame.display.set_caption(GAME_TITLE)
 
-done = False
-firing = False
-while not done:
-    clock.tick(FPS)
 
+def build():
     screen.move()
     enemy.move(player)
     screen.add_enemy(enemy)
     screen.add_player(player)
-
     player.shoot(screen, enemy)
-
     controller.get_action()
+
+
+done = False
+while not done:
+    clock.tick(FPS)
+
+    build()
 
     pygame.display.flip()
     for event in pygame.event.get():
