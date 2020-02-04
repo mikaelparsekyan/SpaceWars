@@ -7,7 +7,7 @@ from game_objects.GameObject import GameObject
 class Player(GameObject):
     move_speed = None
     bullets = []
-    health = 0
+    health = 10
     shooting = False
 
     def __init__(self, x, y, w, h, img):
@@ -60,9 +60,7 @@ class Player(GameObject):
                         enemy.take_life_points(bullet.damage)
 
                 screen.add_bullet(bullet)
-
                 bullet.fire()
-
                 if bullet.get_y() <= 0:
                     print("removed")
                     self.set_shooting(False)
