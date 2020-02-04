@@ -12,7 +12,8 @@ class Screen(GameObject):
         self.screen = pygame.display.set_mode((super().get_width(), super().get_height()))
 
     def add_player(self, player):
-        self.screen.blit(player.get_img(), (player.get_x(), player.get_y()))
+        if player.is_alive():
+            self.screen.blit(player.get_img(), (player.get_x(), player.get_y()))
 
     def add_enemy(self, enemy):
         if enemy.is_alive():

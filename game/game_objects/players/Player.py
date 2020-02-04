@@ -51,7 +51,7 @@ class Player(GameObject):
     def shoot(self,screen, enemy):
         #b_x = self.get_x() + (self.width / 2) - 4
         #b_y = self.get_y() - 20
-        if self.shooting | len(self.get_bullets()) != 0:  # TODO move to bullet.py
+        if self.shooting | len(self.get_bullets()) != 0:
             for bullet in self.get_bullets():
                 self.shooting = True
                 if bullet.get_x() in range(round(enemy.get_x()),
@@ -67,4 +67,3 @@ class Player(GameObject):
                     self.get_bullets().remove(bullet)
                 elif bullet.get_y() <= self.get_y() - BULLET_SPLIT_LENGTH:
                     self.set_shooting(False)
-
