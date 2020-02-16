@@ -1,6 +1,6 @@
 import pygame
 
-from game_objects.Config import PLAYER_INITIAL_IMAGE_PATH, PLAYER_MOVE_SPEED
+from game_objects.Config import PLAYER_INITIAL_IMAGE_PATH, PLAYER_MOVE_SPEED, SCREEN_WIDTH
 from game_objects.players.Player import Player
 
 

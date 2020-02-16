@@ -13,7 +13,7 @@ player = MainPlayer(PLAYER_START_X, PLAYER_START_Y, PLAYER_WIDTH, PLAYER_WIDTH)
 enemy = Enemy(ENEMY_START_X, ENEMY_START_Y, ENEMY_WIDTH, ENEMY_HEIGHT)
 screen = Screen(SCREEN_X, SCREEN_Y, SCREEN_WIDTH, SCREEN_HEIGHT)
 controller = Controller(player)
-#splash_screen = SplashScreen(screen)
+# splash_screen = SplashScreen(screen)
 
 pygame.init()
 pygame.display.set_caption(GAME_TITLE)
@@ -23,10 +23,9 @@ def build():
     screen.move()
     enemy.move(player)
 
-    bullet = EnemyBullet(enemy.get_x(),enemy.get_y())
-    if not enemy.shooting:
-        enemy.add_bullet(bullet)
-    enemy.shoot(screen,player)
+    screen.add_text("Score: ")
+
+    enemy.shoot(screen, player)
 
     screen.add_enemy(enemy)
     screen.add_player(player)

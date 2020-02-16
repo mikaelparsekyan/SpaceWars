@@ -9,6 +9,8 @@ class Player(GameObject):
     bullets = []
     health = 10
     shooting = False
+    moving_left = False
+    moving_right = False
 
     def __init__(self, x, y, w, h, img):
         super().__init__(x, y, w, h, img)
@@ -23,10 +25,14 @@ class Player(GameObject):
 
     def move_left(self):
         if self.get_x() >= 0:
+            self.moving_left = True
+            self.moving_right = False
             self.set_x(self.get_x() - self.move_speed)
 
     def move_right(self):
         if self.x < SCREEN_WIDTH - self.width:
+            self.moving_left = False
+            self.moving_right = True
             self.set_x(self.get_x() + self.move_speed)
 
     def set_move_speed(self, move_speed):

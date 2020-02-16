@@ -11,7 +11,7 @@ class Controller():
         self.player = player
 
     def get_action(self):
-        if self.player.is_alive():
+        #if self.player.is_alive():
             keys = key.get_pressed()
             if keys[K_DOWN]:
                 self.player.move_down()

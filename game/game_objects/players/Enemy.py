@@ -3,13 +3,11 @@ import random
 import pygame
 
 from game_objects.Config import ENEMY_MOVE_SPEED, SCREEN_WIDTH, BULLET_SPLIT_LENGTH, SCREEN_HEIGHT
+from game_objects.objects.bullets.EnemyBullet import EnemyBullet
 from game_objects.players.Player import Player
 
 
 class Enemy(Player):
-    moving_left = True
-    moving_right = False
-
     left_stop = 0
     right_stop = 0
     bullets = []
@@ -23,6 +21,11 @@ class Enemy(Player):
         self.destroyed_image = pygame.transform.scale(self.destroyed_image, (super().get_width(), super().get_height()))
 
     def move(self, player):
+        if self.get_x() in range(round(player.get_x() - 40), round(player.get_x() + 80)):
+            if not self.shooting:
+                bullet = EnemyBullet(self.get_x(), self.get_y())
+                self.add_bullet(bullet)
+
         if self.moving_left:
             if self.left_stop < 0:
                 self.left_stop = 0
@@ -61,5 +64,5 @@ class Enemy(Player):
                     print("removed")
                     self.set_shooting(False)
                     self.get_bullets().remove(bullet)
-                elif bullet.get_y() > self.get_y() + 50:
+                elif bullet.get_y() > self.get_y() + 140:
                     self.set_shooting(False)
